@@ -1,0 +1,22 @@
+{% extends "padre.html "%}
+
+{% load static %}
+
+{% block contenido %}
+
+<main>
+    {% if datos %}
+    <ul>
+        {% for n in datos %}
+            <li>Nombre Usuario = {{n.nombre}}</li>
+            <li>Tipo de Usuario = {{n.descripcion}}</li>
+        {% endfor %}    
+    </ul>
+
+    {% else %}
+    <p>No se encontró ese nombre</p>
+
+    {% endif %}  
+</main>
+
+{% endblock%}

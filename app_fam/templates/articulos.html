@@ -1,0 +1,38 @@
+{% extends "padre.html" %}
+
+{% load static%}
+{% block buscar %} 
+<a class="btn btn-primary" href="buscar_articulo">Buscar</a>
+<a class="btn btn-primary" href="alta_articulo">Agregar</a>
+{% endblock%} 
+{% block contenido %}
+  
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Categoria</th>    
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for n in articulo %}
+          <tr>     
+            <th scope="row">{{n.id}}</th>
+            <td>{{n.nom_art}}</td>
+            <td>{{n.codigo}}</td>
+            <td>{{n.precio}}</td>
+            <td>{{n.stock}}</td>
+            <td>{{n.categoria}}</td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+    
+{% endblock %}    

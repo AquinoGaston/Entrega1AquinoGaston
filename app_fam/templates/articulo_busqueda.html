@@ -1,0 +1,25 @@
+{% extends "padre.html "%}
+
+{% load static %}
+
+{% block contenido %}
+
+<main>
+    {% if datos %}
+    <ul>
+        {% for n in datos %}
+            <li>Nombre del prodcuto = {{n.nom_art}}</li>
+            <li>Codigo = {{n.codigo}}</li>
+            <li>Precio = {{n.precio}}</li>
+            <li>Stock = {{n.stock}}</li>
+            <li>Categoria = {{n.categoria}}</li>       
+        {% endfor %}    
+    </ul>
+
+    {% else %}
+    <p>No se encontró el Productor que busca!!</p>
+
+    {% endif %}  
+</main>
+
+{% endblock%}

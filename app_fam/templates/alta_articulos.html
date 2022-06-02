@@ -1,0 +1,23 @@
+{% extends "padre.html "%}
+
+{% load static %}
+
+{% block contenido %}
+
+    <form action="alta_articulos" method="POST">
+        {% csrf_token %}
+        <p>Nombre de Articulo:</p>
+        <input type="text" name = "nom_art" required>
+        <p>Codigo:</p>
+        <input type="number" name = "codigo" required>
+        <p>Precio:</p>
+        <input type="number" name ="precio" required>
+        <p>Stock</p>
+        <input type="number" name = "stock" required>
+        <p>Categoria</p>
+        <input type="text" name = "categoria" required>
+        
+        <input type="submit" value="Cargar">
+    </form>
+
+{% endblock%}

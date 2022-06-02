@@ -1,0 +1,15 @@
+{% extends "padre.html "%}
+
+{% load static %}
+
+{% block contenido %}
+<main>
+    <h1>Buscar</h1>
+    <form action="busqueda_articulo" method="POST">
+        {% csrf_token %}
+        <p>Ingrese el Nombre del Producto que desea buscar</p>
+        <input type="text" name = "nom_art" id = "nom_art">
+        <input type="submit" value = "Buscar">
+    </form>
+</main>
+{% endblock%}

@@ -1,0 +1,27 @@
+{% extends "padre.html "%}
+
+{% load static %}
+
+
+
+{% block contenido %}
+
+<main>
+    
+    {% if datos %}
+    <ul>
+        {% for n in datos %}
+            <li>Empresa = {{n.nom_vendedor}}</li>
+            <li>Cuit = {{n.cuit}}</li>
+            <li>Direccion = {{n.direccion}}</li>
+            <li>Email = {{n.emaeil}}</li>
+        {% endfor %}    
+    </ul>
+
+    {% else %}
+    <p>No se encontró la Empresa que busca!!</p>
+
+    {% endif %}  
+</main>
+
+{% endblock%}

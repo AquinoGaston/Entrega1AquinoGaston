@@ -1,0 +1,39 @@
+{% extends "padre.html" %}
+
+{% load static%}
+
+{% block buscar %} 
+<a class="btn btn-primary" href="buscar_vendedor">Buscar</a>
+<a class="btn btn-primary" href="alta_vendedor">Agregar</a>
+{% endblock%} 
+
+{% block contenido %}
+  
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nombre Empresa</th>
+            <th scope="col">CUIT</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Email</th>
+            
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for n in vendedor %}
+          <tr>     
+            <th scope="row">{{n.id}}</th>
+            <td>{{n.nom_vendedor}}</td>
+            <td>{{n.cuit}}</td>
+            <td>{{n.direccion}}</td>
+            <td>{{n.emaeil}}</td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+    
+{% endblock %}   
