@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -29,5 +29,6 @@ urlpatterns = [
     path('editar_vendedor/', views.editar_vendedor, name="EditarVendedor"),
     path('editar_usuario/<int:id>', views.editar_usuario, name="EditarUsuario"),
     path('editar_usuario/', views.editar_usuario, name="EditarUsuario"),
+    path('login/' , include("login.urls"))
 
 ]
