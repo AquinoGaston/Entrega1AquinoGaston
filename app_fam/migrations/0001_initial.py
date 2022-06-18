@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('nom_vendedor', models.CharField(max_length=40)),
                 ('cuit', models.IntegerField()),
                 ('direccion', models.CharField(max_length=40)),
-                ('emaeil', models.EmailField(max_length=254)),
+                ('Email', models.EmailField(max_length=254)),
             ],
         ),
     ]

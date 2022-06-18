@@ -10,7 +10,6 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
             <th scope="col">Nombre</th>
             <th scope="col">Dni</th>
             <th scope="col">Descripcion</th>
@@ -20,16 +19,17 @@
         <tbody class="table-group-divider">
         {% for n in usuario %}
           <tr>     
-            <th scope="row">{{n.id}}</th>
             <td>{{n.nombre}}</td>
             <td>{{n.dni}}</td>
             <td>{{n.descripcion}}</td>
+            <td><a href="{% url 'EditarUsuario' n.id %}"> EDITAR </a></td>
+            <td><a href="{% url 'EliminarUsuario' n.id %}"> BORRAR </a></td>
           </tr>
         {% endfor %}
 
         </tbody>
     </table>
 
-
+    <button><a href="{% url 'AgregarUsuario' %}", style="color:green"> AGREGAR </a></button>
     
 {% endblock %}    

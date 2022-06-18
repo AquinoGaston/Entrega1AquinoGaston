@@ -21,9 +21,9 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
-                <a class="navbar-brand" href="usuarios">Usuarios</a>
-                <a class="navbar-brand" href="articulos">Productos</a>
-                <a class="navbar-brand" href="vendedores">Vendedores</a>  
+                <a class="navbar-brand" href="{% url 'usuarios' %}">Usuarios</a>
+                <a class="navbar-brand" href="{% url 'articulos' %}">Productos</a>
+                <a class="navbar-brand" href="{% url 'vendedores' %}">Vendedores</a>  
                 {% block buscar %} 
 
                 

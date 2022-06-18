@@ -12,28 +12,31 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
             <th scope="col">Nombre Empresa</th>
             <th scope="col">CUIT</th>
             <th scope="col">Direccion</th>
             <th scope="col">Email</th>
+            
             
           </tr>
         </thead>
         <tbody class="table-group-divider">
         {% for n in vendedor %}
           <tr>     
-            <th scope="row">{{n.id}}</th>
             <td>{{n.nom_vendedor}}</td>
             <td>{{n.cuit}}</td>
             <td>{{n.direccion}}</td>
             <td>{{n.emaeil}}</td>
+            <td><a href="{% url 'EditarVendedor' n.id %}"> EDITAR </a></td>
+            <td><a href="{% url 'EliminarVendedor' n.id %}"> BORRAR </a></td>
           </tr>
+          
         {% endfor %}
-
+        
         </tbody>
-    </table>
 
+    </table>
+    <button><a href="{% url 'AgregarVendedor' %}", style="color:green"> AGREGAR </a></button>
 
     
 {% endblock %}   

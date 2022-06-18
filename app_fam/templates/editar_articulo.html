@@ -1,0 +1,24 @@
+{% extends "padre.html "%}
+
+{% load static %}
+
+{% block contenido %}
+
+    <form action="{% url 'EditarArticulo' articulo.id %}" method="POST">
+        {% csrf_token %}
+        <p>Nombre</p>
+        {{miform.nom_art}}
+        <p>Codigo</p>
+        {{miform.codigo}}
+        <p>Precio</p>
+        {{miform.precio}}
+        <p>Stock</p>
+        {{miform.stock}}
+        <p>Categoria</p>
+        {{miform.categoria}}
+
+        <input type="submit" value="Guardar">
+
+    </form>
+
+    {% endblock %}

@@ -1,3 +1,4 @@
+import re
 from django.http import HttpResponse
 from django.shortcuts import render 
 from django.template import loader    
@@ -72,7 +73,7 @@ def alta_vendedores(request):
         if mi_formulario.is_valid():
 
             datos =  mi_formulario.cleaned_data
-            articulo =  Vendedor(nom_vendedor = datos['nom_vendedor'], cuit = datos['cuit'],direccion = datos['direccion'],emaeil =datos ['emaeil'])
+            articulo =  Vendedor(nom_vendedor = datos['nom_vendedor'], cuit = datos['cuit'],direccion = datos['direccion'],Email =datos ['Email'])
             articulo.save()
 
             return render(request, "alta_vendedores.html")
@@ -83,14 +84,7 @@ def vendedores (request):
 
     vendedor= Vendedor.objects.all()
     datos = {"vendedor": vendedor}
-    plantilla = loader.get_template ("vendedores.html")
-    documento = plantilla.render(datos)
-    return HttpResponse(documento)
-
-
-
-
-
+    return render(request, "vendedores.html", datos)
 
 
 def buscar (request):
@@ -154,3 +148,87 @@ def busqueda_vendedor(request):
     else:
 
         return HttpResponse("Campo vacio")         
+
+def eliminar_articulo(request, id):
+    arts = Articulo.objects.get(id=id)
+    arts.delete()
+
+    arts = Articulo.objects.all()
+    return render(request,"articulos.html", {"articulo":arts})
+
+def eliminar_usuario(request, id):
+    us = Usuario.objects.get(id=id)
+    us.delete()
+
+    us = Usuario.objects.all()
+    return render(request,"usuarios.html", {"usuario":us})
+
+def eliminar_vendedor(request, id):
+    ven = Vendedor.objects.get(id=id)
+    ven.delete()
+
+    ven = Vendedor.objects.all()
+    return render(request,"vendedores.html", {"vendedor":ven})
+
+def editar_vendedor(request, id):
+    vend = Vendedor.objects.get(id=id)
+    
+    if request.method=="POST":
+        miform = Alta_vendedor(request.POST)
+        if miform.is_valid():
+            datos = miform.cleaned_data
+            vend.nom_vendedor = datos["nom_vendedor"]
+            vend.direccion = datos["direccion"]
+            vend.cuit = datos["cuit"]
+            vend.emaeil = datos["emaeil"]
+            vend.save()
+
+            vend = Vendedor.objects.all()
+            return render (request, "vendedores.html", {"vendedor":vend})
+
+    else:
+        miform = Alta_vendedor(initial={"nom_vendedor":vend.nom_vendedor, "direccion":vend.direccion,"cuit":vend.cuit,"emaeil":vend.emaeil})
+
+    return render(request,"editar_vendedor.html",{"miform":miform, "vendedor":vend})
+
+def editar_usuario(request, id):
+    us = Usuario.objects.get(id=id)
+    
+    if request.method=="POST":
+        miform = Alta_usuario(request.POST)
+        if miform.is_valid():
+            datos = miform.cleaned_data
+            us.nombre = datos["nombre"]
+            us.dni = datos["dni"]
+            us.descripcion = datos["descripcion"]
+            us.save()
+
+            us = Usuario.objects.all()
+            return render (request, "usuarios.html", {"usuario":us})
+
+    else:
+        miform = Alta_usuario(initial={"nombre":us.nombre, "dni":us.dni,"descripcion":us.descripcion})
+
+    return render(request,"editar_usuario.html",{"miform":miform, "usuario":us})
+
+def editar_articulo(request, id):
+    art = Articulo.objects.get(id=id)
+    
+    if request.method=="POST":
+        miform = Alta_articulos(request.POST)
+        if miform.is_valid():
+            datos = miform.cleaned_data
+            art.nom_art = datos["nom_art"]
+            art.codigo = datos["codigo"]
+            art.precio = datos["precio"]
+            art.stock = datos["stock"]
+            art.categoria = datos["categoria"]
+            art.save()
+
+            art = Articulo.objects.all()
+            return render (request, "articulos.html", {"articulo":art})
+
+    else:
+        miform = Alta_articulos(initial={"nom_art":art.nom_art, "codigo":art.codigo,"precio":art.precio,"stock":art.stock,"categoria":art.categoria})
+
+    return render(request,"editar_articulo.html",{"miform":miform, "articulo":art})

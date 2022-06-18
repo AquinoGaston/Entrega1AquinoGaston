@@ -10,7 +10,6 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
             <th scope="col">Marca</th>
             <th scope="col">Codigo</th>
             <th scope="col">Precio</th>
@@ -21,18 +20,19 @@
         <tbody class="table-group-divider">
         {% for n in articulo %}
           <tr>     
-            <th scope="row">{{n.id}}</th>
             <td>{{n.nom_art}}</td>
             <td>{{n.codigo}}</td>
             <td>{{n.precio}}</td>
             <td>{{n.stock}}</td>
             <td>{{n.categoria}}</td>
+            <td><a href="{% url 'EditarArticulo' n.id %}"> EDITAR </a></td>
+            <td><a href="{% url 'EliminarArticulo' n.id %}"> BORRAR </a></td>
           </tr>
         {% endfor %}
 
         </tbody>
     </table>
 
-
+    <button><a href="{% url 'AgregarArticulo' %}", style="color:green"> AGREGAR </a></button>
     
 {% endblock %}    
