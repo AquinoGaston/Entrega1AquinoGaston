@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
    #path('',views.inicio , name ="Inicio"),
    
-   path('' , views.login_request )
+   path('' , views.login_request, name = "Login" ),
       
 
 ]

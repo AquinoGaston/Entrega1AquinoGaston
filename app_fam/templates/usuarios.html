@@ -1,9 +1,8 @@
 {% extends "padre.html" %}
 
-{% load static%}
+{% load static %}
 {% block buscar %} 
 <a class="btn btn-primary" href="buscar">Buscar Usuarios</a>
-<a class="btn btn-primary" href="alta_usuarios">Agregar</a>
 {% endblock%} 
 {% block contenido %}
   
@@ -22,14 +21,17 @@
             <td>{{n.nombre}}</td>
             <td>{{n.dni}}</td>
             <td>{{n.descripcion}}</td>
+            
+            {% if request.user.is_authenticated %}
             <td><a href="{% url 'EditarUsuario' n.id %}"> EDITAR </a></td>
             <td><a href="{% url 'EliminarUsuario' n.id %}"> BORRAR </a></td>
+            {% endif %}
           </tr>
         {% endfor %}
 
         </tbody>
     </table>
-
+    {% if request.user.is_authenticated %}
     <button><a href="{% url 'AgregarUsuario' %}", style="color:green"> AGREGAR </a></button>
-    
+    {% endif %}
 {% endblock %}    

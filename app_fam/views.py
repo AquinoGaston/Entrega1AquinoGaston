@@ -1,4 +1,4 @@
-import re
+
 from django.http import HttpResponse
 from django.shortcuts import render 
 from django.template import loader    
@@ -31,9 +31,7 @@ def usuarios (request):
 
     usuarios = Usuario.objects.all()
     datos = {"usuario": usuarios}
-    plantilla = loader.get_template ("usuarios.html")
-    documento = plantilla.render(datos)
-    return HttpResponse(documento)
+    return render(request,"usuarios.html",datos)
 
 
 def alta_articulos(request):
@@ -59,10 +57,8 @@ def articulos (request):
 
     articulo= Articulo.objects.all()
     datos = {"articulo": articulo}
-    plantilla = loader.get_template ("articulos.html")
-    documento = plantilla.render(datos)
-    return HttpResponse(documento)
-    
+    return render(request, "articulos.html",datos)
+  
 
 def alta_vendedores(request):
  
