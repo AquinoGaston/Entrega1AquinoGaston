@@ -10,6 +10,11 @@ def inicio (request):
 
     return render(request, "padre.html")
 
+def about (request):
+
+    return render(request, "about.html")
+
+
 def alta_usuarios (request):
 
     if request.method == "POST":
