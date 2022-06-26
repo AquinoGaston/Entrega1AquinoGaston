@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Landing Page - Start Bootstrap Theme</title>
+        <title>AGF E-Commerce</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -27,12 +27,16 @@
                 <a class="navbar-brand" href="{% url 'about' %}">About</a>
 
                 {% if not request.user.is_authenticated %}
+                <a style="color: blue" class="navbar-brand" href="{% url 'Register' %}"><b>Registrar</b></a>
                 <a style="color: blue" class="navbar-brand" href="{% url 'Login' %}"><b>Ingresar</b></a>  
                 {% endif %}
                 
                 
                 {% if request.user.is_authenticated %} 
                 <a style="color:blue" class="navbar-brand" href="{% url 'logout' %}"><b>Cerrar sesion</b></a>
+                <a style="color:blue" class="navbar-brand" href="{% url 'EditarPerfil' %}"><b>Perfil</b></a>
+                <img height="45px" {{user.imagen_avatar}}>
+                <h3>{{user.}}</h3>
                 {% endif %}   
 
 
@@ -48,7 +52,7 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">AGF E-COMERCE</h1>
+                            <h1 class="mb-5">AGF E-COMMERCE</h1>
 
                             <!-- Signup form-->
                             <!-- * * * * * * * * * * * * * * *-->
