@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+<<<<<<< HEAD
 from django.template import loader 
 from django.contrib.auth.decorators import login_required
 from app_fam.models import *
@@ -8,6 +9,15 @@ from login.forms  import *
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm 
 from django.contrib.auth import login , authenticate
 
+=======
+from django.template import loader
+ 
+from app_fam.models import *
+from login.forms  import *
+from django.contrib.auth.forms import AuthenticationForm , UserCreationForm 
+from django.contrib.auth import login , authenticate
+from django.contrib.auth.decorators import login_required
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 # Create your views here.
 
   
@@ -34,13 +44,19 @@ def login_request( request ):
                 return HttpResponse( f"Usuario Incorrecto" )
 
         else: 
+<<<<<<< HEAD
             return render( request, "login_error.html")
     
 
+=======
+            return HttpResponse( f"Form Incorrecto {form}" )
+    
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
     form = AuthenticationForm()
     return render( request , "login.html" , { "form":form } )
 
 
+<<<<<<< HEAD
 def register(request):
 
       if request.method == 'POST':
@@ -90,4 +106,48 @@ def editarPerfil(request):
 
       #Voy al html que me permite editar
       return render(request, "editarperfil.html", {"miFormulario":miFormulario, "usuario":usuario})
+=======
+def register (request):
+
+    if request.method == 'POST':
+        
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid:
+            form.save()
+            return HttpResponse ("Usuario Creado")
+
+    else:
+        form = UserCreationForm()
+
+    return render (request, "registro.html", {"form":form})    
+
+@login_required
+def editarPerfil (request):
+
+    usuario = request.user
+
+    if request.method == 'POST':
+        
+        miformulario = UserEditForm (request.POST)
+
+        if miformulario.is_valid():
+
+            informacion = miformulario.cleaned_data
+
+            usuario.email = informacion['email']
+            password = informacion['password1']
+            usuario.set_password(password)
+            usuario.save()
+
+            return render (request , "padre.html")
+    else:
+
+        miformulario = UserEditForm(initial = {'email':usuario.email})
+
+    return render (request,"editar_perfil.html",{'miformulario':miformulario , 'usuario':usuario} )    
+
+
+
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 

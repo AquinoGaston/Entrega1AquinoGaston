@@ -1,5 +1,9 @@
 from django.urls import path, include
 from . import views
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 
 urlpatterns = [
     path('',views.inicio , name ="Inicio"),   
@@ -31,6 +35,11 @@ urlpatterns = [
     path('editar_usuario/<int:id>', views.editar_usuario, name="EditarUsuario"),
     path('editar_usuario/', views.editar_usuario, name="EditarUsuario"),
     path('login/' , include("login.urls")),
+<<<<<<< HEAD
 
 
+=======
+    
+    
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 ]
