@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+from cProfile import label
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 =======
 from cProfile import label
 >>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
@@ -6,6 +10,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 class UserRegisterForm(UserCreationForm):
 
@@ -40,6 +45,8 @@ class UserEditForm(UserCreationForm):
         help_texts = {k:"" for k in fields}
 
 =======
+=======
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 class UserEditForm(UserCreationForm):
     
     email = forms.EmailField( label = "Modificar")
@@ -50,5 +57,9 @@ class UserEditForm(UserCreationForm):
         model = User
         fields = ['email','password1','password2']
         help_text = {k:"" for k in fields}
+<<<<<<< HEAD
+        
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
+=======
         
 >>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6

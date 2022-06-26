@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 <<<<<<< HEAD
+<<<<<<< HEAD
 from django.template import loader 
 from django.contrib.auth.decorators import login_required
 from app_fam.models import *
@@ -9,6 +10,15 @@ from login.forms  import *
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm 
 from django.contrib.auth import login , authenticate
 
+=======
+from django.template import loader
+ 
+from app_fam.models import *
+from login.forms  import *
+from django.contrib.auth.forms import AuthenticationForm , UserCreationForm 
+from django.contrib.auth import login , authenticate
+from django.contrib.auth.decorators import login_required
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 =======
 from django.template import loader
  
@@ -51,11 +61,15 @@ def login_request( request ):
 =======
             return HttpResponse( f"Form Incorrecto {form}" )
     
+<<<<<<< HEAD
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
+=======
 >>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
     form = AuthenticationForm()
     return render( request , "login.html" , { "form":form } )
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 def register(request):
 
@@ -107,6 +121,8 @@ def editarPerfil(request):
       #Voy al html que me permite editar
       return render(request, "editarperfil.html", {"miFormulario":miFormulario, "usuario":usuario})
 =======
+=======
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 def register (request):
 
     if request.method == 'POST':
@@ -149,5 +165,8 @@ def editarPerfil (request):
 
 
 
+<<<<<<< HEAD
+>>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
+=======
 >>>>>>> 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6
 
