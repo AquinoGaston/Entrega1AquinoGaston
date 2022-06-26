@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
- 
+from django.contrib.auth.models import User
 from app_fam.models import *
 from login.forms  import *
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm 
@@ -27,13 +27,13 @@ def login_request( request ):
 
                 login( request , user )
 
-                return render( request , "LoginInicio.html" , {"mensaje": f"Bienvenido usuario { usuario }" } )
+                return render( request , "LoginInicio.html" , {"mensaje": f"Bienvenido { usuario }" } )
 
             else:
                 return HttpResponse( f"Usuario Incorrecto" )
 
         else: 
-            return HttpResponse( f"Form Incorrecto {form}" )
+            return render(request, "login_error.html" )
     
     form = AuthenticationForm()
     return render( request , "login.html" , { "form":form } )
@@ -43,16 +43,19 @@ def register (request):
 
     if request.method == 'POST':
         
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
 
-        if form.is_valid:
+        if form.is_valid():
+            username = form.cleaned_data['username']
             form.save()
-            return HttpResponse ("Usuario Creado")
+            return render(request, "LoginInicio.html")
 
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
 
-    return render (request, "registro.html", {"form":form})    
+    return render (request, "registro.html", {"form":form})
+    
+    
 
 @login_required
 def editarPerfil (request):
@@ -68,6 +71,8 @@ def editarPerfil (request):
             informacion = miformulario.cleaned_data
 
             usuario.email = informacion['email']
+            usuario.first_name = informacion['first_name']
+            usuario.last_name = informacion['last_name']
             password = informacion['password1']
             usuario.set_password(password)
             usuario.save()
@@ -75,7 +80,7 @@ def editarPerfil (request):
             return render (request , "padre.html")
     else:
 
-        miformulario = UserEditForm(initial = {'email':usuario.email})
+        miformulario = UserEditForm(initial = {'email':usuario.email, 'first_name':usuario.first_name, 'last_name':usuario.last_name})
 
     return render (request,"editar_perfil.html",{'miformulario':miformulario , 'usuario':usuario} )    
 
