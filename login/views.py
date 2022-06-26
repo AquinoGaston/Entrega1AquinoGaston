@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
 from app_fam.models import *
 from app_fam.forms  import *
 from django.template import loader
@@ -7,6 +8,7 @@ from login.forms  import *
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm 
 from django.contrib.auth import login , authenticate
 from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
   
@@ -34,11 +36,12 @@ def login_request( request ):
 
         else: 
 
-            return render(request, "login_error.html" )
 
+            return render(request, "login_error.html" )
 
     form = AuthenticationForm()
     return render( request , "login.html" , { "form":form } )
+
 
 
 def register (request):
@@ -85,5 +88,4 @@ def editarPerfil (request):
         miformulario = UserEditForm(initial = {'email':usuario.email, 'first_name':usuario.first_name, 'last_name':usuario.last_name})
 
     return render (request,"editar_perfil.html",{'miformulario':miformulario , 'usuario':usuario} )    
-
 

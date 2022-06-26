@@ -32,9 +32,6 @@
                 
                 {% if request.user.is_authenticated %} 
                 <a style="color:blue" class="navbar-brand" href="{% url 'editarperfil' %}"><b>Editar Perfil</b></a>
-                {% endif %}  
-                
-                {% if request.user.is_authenticated %} 
                 <a style="color:blue" class="navbar-brand" href="{% url 'logout' %}"><b>Cerrar sesion</b></a>
                 
                 {% endif %}   

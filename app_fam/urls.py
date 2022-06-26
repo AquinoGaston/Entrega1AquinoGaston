@@ -31,4 +31,5 @@ urlpatterns = [
     path('editar_usuario/<int:id>', views.editar_usuario, name="EditarUsuario"),
     path('editar_usuario/', views.editar_usuario, name="EditarUsuario"),
     path('login/' , include("login.urls")),
+
 ]

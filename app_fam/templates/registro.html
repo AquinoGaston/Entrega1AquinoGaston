@@ -1,16 +1,17 @@
+
 {% extends "padre.html "%}
 
 {% load static %}
 
 {% block contenido %}
-
     <h1>Registro</h1>
 
     <form action="" method="POST">
         {% csrf_token %}
 
-        {{ form.as_p }}
-        <button type="submit">Registrar</button>
+        {{form.as_p}}
+
+        <button type="">Registrar</button>
     </form>
 
-    {% endblock %}  
+{% endblock%}
