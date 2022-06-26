@@ -4,6 +4,10 @@ from django.shortcuts import render
 from django.template import loader    
 from app_fam.models import *
 from app_fam.forms  import *
+
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+
  # Create your views here. 
 
 def inicio (request):
@@ -192,6 +196,8 @@ def editar_vendedor(request, id):
 
     return render(request,"editar_vendedor.html",{"miform":miform, "vendedor":vend})
 
+
+
 def editar_usuario(request, id):
     us = Usuario.objects.get(id=id)
     
@@ -233,3 +239,5 @@ def editar_articulo(request, id):
         miform = Alta_articulos(initial={"nom_art":art.nom_art, "codigo":art.codigo,"precio":art.precio,"stock":art.stock,"categoria":art.categoria})
 
     return render(request,"editar_articulo.html",{"miform":miform, "articulo":art})
+
+

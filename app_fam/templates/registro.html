@@ -1,8 +1,10 @@
-{% extends "padre.html" %}
+{% extends "padre.html "%}
+
 {% load static %}
 
-
 {% block contenido %}
+
+    <h1>Registro</h1>
 
     <form action="" method="POST">
         {% csrf_token %}
@@ -11,6 +13,4 @@
         <button type="submit">Registrar</button>
     </form>
 
-   
-    
     {% endblock %}  
