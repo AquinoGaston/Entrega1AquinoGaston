@@ -7,6 +7,9 @@ from app_fam.forms  import *
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+
+from django.contrib import messages
 
  # Create your views here. 
 
@@ -18,20 +21,23 @@ def about (request):
 
     return render(request, "about.html")
 
-
+@login_required
 def alta_usuarios (request):
 
     if request.method == "POST":
-        
+
+        usuario = request.user
+
         mi_formulario = Alta_usuario (request.POST)
 
         if mi_formulario.is_valid():
 
             datos =  mi_formulario.cleaned_data
-            usuario = Usuario(nombre = datos['nombre'], dni = datos['dni'],descripcion = datos['descripcion'])
+            usuario = Usuario(nombre = datos['nombre'], dni = datos['dni'],descripcion = datos['descripcion'],id_usuario = usuario.id)
             usuario.save()
 
-            return render(request, "alta_usuarios.html")
+            usuario = Usuario.objects.all()
+            return render(request, "usuarios.html",{"usuario":usuario})
 
     return render(request, "alta_usuarios.html")    
 
@@ -42,20 +48,24 @@ def usuarios (request):
     datos = {"usuario": usuarios}
     return render(request,"usuarios.html",datos)
 
-
+@login_required
 def alta_articulos(request):
  
     if request.method == "POST":
-        
+
+        usuario = request.user
+
         mi_formulario = Alta_articulos (request.POST)
 
         if mi_formulario.is_valid():
 
             datos =  mi_formulario.cleaned_data
-            articulo = Articulo(nom_art = datos['nom_art'], codigo = datos['codigo'],precio = datos['precio'],stock =datos ['stock'], categoria = datos ['categoria'])
+            articulo = Articulo(nom_art = datos['nom_art'], codigo = datos['codigo'],precio = datos['precio'],stock =datos ['stock'], categoria = datos ['categoria'] , id_usuario = usuario.id )
             articulo.save()
 
-            return render(request, "alta_articulos.html")    
+
+            articulo= Articulo.objects.all()            
+            return render(request, "articulos.html",{"articulo":articulo})    
 
  
 
@@ -68,20 +78,23 @@ def articulos (request):
     datos = {"articulo": articulo}
     return render(request, "articulos.html",datos)
   
-
+@login_required
 def alta_vendedores(request):
- 
+
     if request.method == "POST":
-        
+
+        usuario = request.user
+
         mi_formulario = Alta_vendedor (request.POST)
 
         if mi_formulario.is_valid():
 
             datos =  mi_formulario.cleaned_data
-            articulo =  Vendedor(nom_vendedor = datos['nom_vendedor'], cuit = datos['cuit'],direccion = datos['direccion'],Email =datos ['Email'])
-            articulo.save()
+            vendedor =  Vendedor(nom_vendedor = datos['nom_vendedor'], cuit = datos['cuit'],direccion = datos['direccion'], emaeil =datos ['emaeil'],id_usuario = usuario.id)
+            vendedor.save()
 
-            return render(request, "alta_vendedores.html")
+            vendedor= Vendedor.objects.all()
+            return render(request, "vendedores.html", {"vendedor":vendedor})
 
     return render(request, "alta_vendedores.html") 
 
@@ -155,89 +168,158 @@ def busqueda_vendedor(request):
         return HttpResponse("Campo vacio")         
 
 def eliminar_articulo(request, id):
-    arts = Articulo.objects.get(id=id)
-    arts.delete()
-
-    arts = Articulo.objects.all()
-    return render(request,"articulos.html", {"articulo":arts})
-
-def eliminar_usuario(request, id):
-    us = Usuario.objects.get(id=id)
-    us.delete()
-
-    us = Usuario.objects.all()
-    return render(request,"usuarios.html", {"usuario":us})
-
-def eliminar_vendedor(request, id):
-    ven = Vendedor.objects.get(id=id)
-    ven.delete()
-
-    ven = Vendedor.objects.all()
-    return render(request,"vendedores.html", {"vendedor":ven})
-
-def editar_vendedor(request, id):
-    vend = Vendedor.objects.get(id=id)
     
-    if request.method=="POST":
-        miform = Alta_vendedor(request.POST)
-        if miform.is_valid():
-            datos = miform.cleaned_data
-            vend.nom_vendedor = datos["nom_vendedor"]
-            vend.direccion = datos["direccion"]
-            vend.cuit = datos["cuit"]
-            vend.emaeil = datos["emaeil"]
-            vend.save()
+    usuario = request.user
+    arts = Articulo.objects.get(id=id)
+    
+    if usuario.id == arts.id_usuario:
+        arts.delete()
 
-            vend = Vendedor.objects.all()
-            return render (request, "vendedores.html", {"vendedor":vend})
+        arts = Articulo.objects.all()
+        return render(request,"articulos.html", {"articulo":arts})
 
     else:
-        miform = Alta_vendedor(initial={"nom_vendedor":vend.nom_vendedor, "direccion":vend.direccion,"cuit":vend.cuit,"emaeil":vend.emaeil})
+        messages.success(request, "Alerta, no posee permisos sobre este articulo")
+        arts = Articulo.objects.all()
+        return render(request,"articulos.html", {"articulo":arts})
+        
+       
+   
 
-    return render(request,"editar_vendedor.html",{"miform":miform, "vendedor":vend})
+def eliminar_usuario(request, id):
+    
 
+    usuario = request.user
+    us = Usuario.objects.get(id=id)
+
+    if usuario.id == us.id_usuario:
+        us.delete()
+
+        us = Usuario.objects.all()
+        return render(request,"usuarios.html", {"usuario":us})
+
+    else:
+
+        messages.success(request, "Alerta, no posee permisos sobre este articulo")
+        us = Usuario.objects.all()
+        return render(request,"usuarios.html", {"usuario":us})
+
+def eliminar_vendedor(request, id):
+    
+    usuario = request.user
+    ven = Vendedor.objects.get(id=id)
+    
+    if usuario.id == ven.id_usuario:
+
+        ven.delete()
+
+        ven = Vendedor.objects.all()
+        return render(request,"vendedores.html", {"vendedor":ven})
+
+    else:
+
+        messages.success(request, "Alerta, no posee permisos sobre este articulo")
+        ven = Vendedor.objects.all()
+        return render(request,"vendedores.html", {"vendedor":ven})
+
+
+def editar_vendedor(request, id):
+
+    usuario = request.user
+
+    vend = Vendedor.objects.get(id=id)
+    
+    if usuario.id == vend.id_usuario: 
+
+        if request.method=="POST":
+            miform = Alta_vendedor(request.POST)
+            if miform.is_valid():
+                datos = miform.cleaned_data
+                vend.nom_vendedor = datos["nom_vendedor"]
+                vend.direccion = datos["direccion"]
+                vend.cuit = datos["cuit"]
+                vend.emaeil = datos["emaeil"]
+                vend.save()
+
+                vend = Vendedor.objects.all()
+                return render (request, "vendedores.html", {"vendedor":vend})
+
+        else:
+            miform = Alta_vendedor(initial={"nom_vendedor":vend.nom_vendedor, "direccion":vend.direccion,"cuit":vend.cuit,"emaeil":vend.emaeil})
+
+        return render(request,"editar_vendedor.html",{"miform":miform, "vendedor":vend})
+
+    else:
+
+        messages.success(request, "Alerta, no posee permisos sobre este articulo")
+        ven = Vendedor.objects.all()
+        return render(request,"vendedores.html", {"vendedor":ven})
 
 
 def editar_usuario(request, id):
+
+    usuario = request.user
+
     us = Usuario.objects.get(id=id)
     
-    if request.method=="POST":
-        miform = Alta_usuario(request.POST)
-        if miform.is_valid():
-            datos = miform.cleaned_data
-            us.nombre = datos["nombre"]
-            us.dni = datos["dni"]
-            us.descripcion = datos["descripcion"]
-            us.save()
+    if usuario.id == us.id_usuario:
 
-            us = Usuario.objects.all()
-            return render (request, "usuarios.html", {"usuario":us})
+        if request.method=="POST":
+            miform = Alta_usuario(request.POST)
+            if miform.is_valid():
+                datos = miform.cleaned_data
+                us.nombre = datos["nombre"]
+                us.dni = datos["dni"]
+                us.descripcion = datos["descripcion"]
+                us.save()
+
+                us = Usuario.objects.all()
+                return render (request, "usuarios.html", {"usuario":us})
+
+        else:
+            miform = Alta_usuario(initial={"nombre":us.nombre, "dni":us.dni,"descripcion":us.descripcion})
+
+        return render(request,"editar_usuario.html",{"miform":miform, "usuario":us})
 
     else:
-        miform = Alta_usuario(initial={"nombre":us.nombre, "dni":us.dni,"descripcion":us.descripcion})
 
-    return render(request,"editar_usuario.html",{"miform":miform, "usuario":us})
+        messages.success(request, "Alerta, no posee permisos sobre este articulo")
+        us = Usuario.objects.all()
+        return render(request,"usuarios.html", {"usuario":us})
+
+
 
 def editar_articulo(request, id):
+    
+    usuario = request.user
+
     art = Articulo.objects.get(id=id)
     
-    if request.method=="POST":
-        miform = Alta_articulos(request.POST)
-        if miform.is_valid():
-            datos = miform.cleaned_data
-            art.nom_art = datos["nom_art"]
-            art.codigo = datos["codigo"]
-            art.precio = datos["precio"]
-            art.stock = datos["stock"]
-            art.categoria = datos["categoria"]
-            art.save()
+    if usuario.id == art.id_usuario:
 
-            art = Articulo.objects.all()
-            return render (request, "articulos.html", {"articulo":art})
+        if request.method=="POST":
+            miform = Alta_articulos(request.POST)
+            if miform.is_valid():
+                datos = miform.cleaned_data
+                art.nom_art = datos["nom_art"]
+                art.codigo = datos["codigo"]
+                art.precio = datos["precio"]
+                art.stock = datos["stock"]
+                art.categoria = datos["categoria"]
+                art.save()
+
+                art = Articulo.objects.all()
+                return render (request, "articulos.html", {"articulo":art})
+
+        else:
+            miform = Alta_articulos(initial={"nom_art":art.nom_art, "codigo":art.codigo,"precio":art.precio,"stock":art.stock,"categoria":art.categoria})
+
+        return render(request,"editar_articulo.html",{"miform":miform, "articulo":art})
 
     else:
-        miform = Alta_articulos(initial={"nom_art":art.nom_art, "codigo":art.codigo,"precio":art.precio,"stock":art.stock,"categoria":art.categoria})
 
-    return render(request,"editar_articulo.html",{"miform":miform, "articulo":art})
+        messages.success(request, "Alerta, no posee permisos sobre este articulo")
+        arts = Articulo.objects.all()
+        return render(request,"articulos.html", {"articulo":arts})
 
 

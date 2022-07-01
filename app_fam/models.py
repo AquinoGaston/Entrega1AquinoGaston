@@ -8,12 +8,14 @@ class Articulo (models.Model):
     precio =  models.IntegerField ()
     stock = models.IntegerField()
     categoria = models.CharField (max_length= 40)
+    id_usuario = models.IntegerField()
 
 class Usuario (models.Model):
 
     nombre = models.CharField (max_length= 40)
     dni =  models.IntegerField ()
     descripcion = models.CharField (max_length= 40)
+    id_usuario = models.IntegerField()
 
 class Vendedor (models.Model):
 
@@ -21,3 +23,4 @@ class Vendedor (models.Model):
     cuit =  models.IntegerField ()
     direccion = models.CharField (max_length= 40)   
     emaeil = models.EmailField() 
+    id_usuario = models.IntegerField()

@@ -1,0 +1,115 @@
+[33mcommit ce06e9578384fc937b0244021fc338baa0cea03f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mnuevarama[m[33m)[m
+Merge: 0a7e0d9 3b7b328
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sun Jun 26 18:31:40 2022 -0300
+
+    Version 3.0 con perfiles
+
+[33mcommit 0a7e0d9bf39fe81b5ed83d600ec9ce5b1c68110e[m[33m ([m[1;31morigin/perfil[m[33m)[m
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sun Jun 26 17:21:33 2022 -0300
+
+    Version 2.1
+
+[33mcommit 34b96cc94815a0e4e8e2432d2b2ac5fc1865e9e5[m
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sun Jun 26 16:45:01 2022 -0300
+
+    Version de Perfiles 2.0
+
+[33mcommit 0e88716a5f29a64ac4ab74c6c4ee3bc073281f08[m
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sun Jun 26 15:59:44 2022 -0300
+
+    Version con Perfil Actualizado
+
+[33mcommit 3b7b32873ea7c21bdfe0082f89942518696b28cf[m
+Merge: 8f14804 6bd9fbe
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sun Jun 26 13:07:51 2022 -0300
+
+    Commit con gasty 2
+
+[33mcommit 8f14804460b4e9ce1a2ad12d92a9ca306bbd1cf0[m
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sun Jun 26 12:57:11 2022 -0300
+
+    Commit con gasty
+
+[33mcommit 23b3538d5439d44b53a50dce11730ba9461f12a5[m
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sun Jun 26 12:49:14 2022 -0300
+
+    Commit con perfil
+
+[33mcommit 6bd9fbe92cfbd1239e51d52ee83e3d369be30fa6[m
+Author: Aquino Gaston <aquinogaston27@gmail.com>
+Date:   Sat Jun 25 19:25:11 2022 -0300
+
+    Ingresar nuevos /Editar Usuarios
+
+[33mcommit 0d6379658d6c69764b800fb771689f88f007a700[m
+Author: Aquino Gaston <aquinogaston27@gmail.com>
+Date:   Sat Jun 25 12:19:05 2022 -0300
+
+     Puento y apartes, Ortografia del About
+
+[33mcommit 2bee1b2df31c8bbb91217e9d4200f1eb0a029d45[m
+Author: Matías González <gonzalemj35@gmail.com>
+Date:   Sat Jun 25 11:55:16 2022 -0300
+
+    Version 1.4: about con redaccion
+
+[33mcommit aabf0c76fe55e2a56780107eb0ac8fd1d7d23a93[m
+Author: Matías González <gonzalemj35@gmail.com>
+Date:   Thu Jun 23 21:29:58 2022 -0300
+
+    version1.3: se creola seccion ABOUT y tamplate about.html. Falta que redactemos junto lo que queresmos mostrar. Tambien hice algunas modificaciones en algunos template para resarltar algunos campos
+
+[33mcommit 14e5e0db8d3eb194d104df97b3062469d60eaad8[m
+Author: Aquino Gaston <aquinogaston27@gmail.com>
+Date:   Mon Jun 20 16:27:22 2022 -0300
+
+    Version los persmisos de usuarios
+
+[33mcommit d17af7a10a58826023fcb5d6e3939b2d63452d47[m
+Author: Matías González <gonzalemj35@gmail.com>
+Date:   Sat Jun 18 16:24:12 2022 -0300
+
+    version1.2: se creo APP login y tamplate login.html y loginInicio.html
+
+[33mcommit f3199145ca64146ebad4b91e08b7b9e49a4e7714[m
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sat Jun 18 15:27:09 2022 -0300
+
+    Version con CRUD
+
+[33mcommit 6c6f1eb6843b23dc86ced2bb0ec2cbb2f0f77613[m
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sat Jun 18 11:55:55 2022 -0300
+
+    Version modificada Buscar
+
+[33mcommit 702e4e4c67e10e9592fc1580c1b172b281eab893[m
+Author: Matías González <gonzalemj35@gmail.com>
+Date:   Sat Jun 18 11:25:43 2022 -0300
+
+    Cambios en template padre
+
+[33mcommit 3389d3e11bea49fd2ca6bdb5d7b44339677e9cb3[m
+Author: Ezequiel Falico <jfalico@hotmail.com>
+Date:   Sat Jun 18 10:36:43 2022 -0300
+
+    Version modificada de URLs
+
+[33mcommit 1ec261ff8b86ca7c0797f4c99d9fbc6d5118d6bb[m
+Author: Gaston Aquino <aquinogaston27@gmail.com>
+Date:   Thu Jun 2 19:54:53 2022 -0300
+
+    Primera version Proyecto Final PreEntrega con README
+
+[33mcommit ee5621b608b8422695bde4b11261f178388d5fbb[m
+Author: Gaston Aquino <aquinogaston27@gmail.com>
+Date:   Thu Jun 2 19:45:19 2022 -0300
+
+    Primera version Proyecto Final PreEntrega
