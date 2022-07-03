@@ -35,7 +35,7 @@
                 <a style="color:blue" class="navbar-brand" href="{% url 'editarperfil' %}"><b>Editar Perfil</b></a>
                 <a style="color:blue" class="navbar-brand" href="{% url 'logout' %}"><b>Cerrar sesion</b></a>
                 <img src="{{ url }}" alt="" class="fedd_avatar">
-
+                <p class ="text-muted small mb-4">Bienvenido, {{user.username}}</p>
                 <style>
                     .fedd_avatar{
                         display: table-cell;
