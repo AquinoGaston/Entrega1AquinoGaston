@@ -326,6 +326,7 @@ def editar_articulo(request, id):
 
 #avatares = Avatar.objects.filter(user=request.user.id)
 
+#USUARIOS
 @login_required
 def comentar ( request, id ):
 
@@ -343,27 +344,38 @@ def comentar ( request, id ):
             mensaje = Mensaje( texto = datos['texto'], remitente = usuario.username, id_destino = us.id)
             mensaje.save()
 
-            mensaje = Mensaje.objects.filter(id_destino=id)
-            
-            return render(request, "comentarios.html",{"mensaje":mensaje , "usuario":us})
+            messages.success(request, "El mensaje se envio correctamente") 
+
+            us = Usuario.objects.all()                   
+            return render(request, "usuarios.html",{"usuario":us})
     
     return render(request, "mensajes.html", {"usuario":us})  
 
 def mensajes( request, id ):
 
+    usuario = request.user
     us = Usuario.objects.get(id=id)
-    mensaje = Mensaje.objects.filter(id_destino=id)
-    
 
-    return render(request, "comentarios.html",{"mensaje":mensaje , "usuario":us})
+    if usuario.id == us.id_usuario:
+
+        us = Usuario.objects.get(id=id)
+        mensaje = Mensaje.objects.filter(id_destino=id)
     
+        return render(request, "comentarios.html",{"mensaje":mensaje , "usuario":us})
+
+    else:
+
+        messages.success(request, "Alerta, no posee permisos para ver los mensajes")
+        us = Usuario.objects.all() 
+        return render(request,"usuarios.html", {"usuario":us})
+ 
 #VENDEDORES
 
 @login_required
 def comentar_vendedor ( request, id ):
 
     usuario = request.user
-
+  
     us = Vendedor.objects.get(id=id)
 
     if request.method == "POST":
@@ -375,20 +387,34 @@ def comentar_vendedor ( request, id ):
             datos =  mi_formulario.cleaned_data
             mensaje = MensajeVendedor( texto = datos['texto'], remitente = usuario.username, id_destino = us.id)
             mensaje.save()
-
-            mensaje = MensajeVendedor.objects.filter(id_destino=id)
             
-            return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "usuario":us})
+            messages.success(request, "El mensaje se envio correctamente") 
+
+            vend = Vendedor.objects.all()                   
+            return render(request, "vendedores.html",{"vendedor":vend})
     
     return render(request, "mensajesVendedor.html", {"usuario":us})  
 
 def mensajes_vendedor( request, id ):
 
-    us = Vendedor.objects.get(id=id)
-    mensaje = MensajeVendedor.objects.filter(id_destino=id)
+    usuario = request.user
+    vend = Vendedor.objects.get(id=id)
+
+    if usuario.id == vend.id_usuario:
+
+        us = Vendedor.objects.get(id=id)
+        mensaje = MensajeVendedor.objects.filter(id_destino=id)
     
 
-    return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "usuario":us})
+        return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "usuario":us})
+
+    else:
+
+        messages.success(request, "Alerta, no posee permisos para ver los mensajes")
+        vend = Vendedor.objects.all() 
+        return render(request,"vendedores.html", {"vendedor":vend})
+
+
 
 #ARTICULOS
 @login_required
@@ -408,18 +434,33 @@ def comentar_articulos ( request, id ):
             mensaje = MensajeArticulo( texto = datos['texto'], remitente = usuario.username, id_destino = us.id)
             mensaje.save()
 
-            mensaje = MensajeArticulo.objects.filter(id_destino=id)
-            
-            return render(request, "comentariosArticulo.html",{"mensaje":mensaje , "usuario":us})
+            messages.success(request, "El mensaje se envio correctamente") 
+
+            art = Articulo.objects.all()                   
+            return render(request, "articulos.html",{"articulo":art})
     
     return render(request, "mensajesArticulo.html", {"usuario":us})  
 
 def mensajes_articulos( request, id ):
 
-    us = Articulo.objects.get(id=id)
-    mensaje = MensajeArticulo.objects.filter(id_destino=id)
-    
+    usuario = request.user
+    art = Articulo.objects.get(id=id)
 
-    return render(request, "comentariosArticulo.html",{"mensaje":mensaje , "usuario":us})
+    if usuario.id == art.id_usuario:
+
+        art = Articulo.objects.get(id=id)
+        mensaje = MensajeArticulo.objects.filter(id_destino=id)
+    
+        return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "articulo":art})
+
+    else:
+
+        messages.success(request, "Alerta, no posee permisos para ver los mensajes")
+        art = Articulo.objects.all() 
+        return render(request,"articulos.html", {"articulo":art})
+
+
+
+
 
     
