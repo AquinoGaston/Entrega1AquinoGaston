@@ -1,5 +1,7 @@
 from django import forms
 
+
+
 class Alta_usuario (forms.Form):
 
     nombre = forms.CharField (max_length= 40)
@@ -20,3 +22,10 @@ class Alta_vendedor (forms.Form):
     cuit =  forms.IntegerField ()
     direccion = forms.CharField (max_length= 40)   
     emaeil = forms.EmailField() 
+
+
+class Alta_mensaje(forms.Form):
+
+    texto = forms.CharField(max_length=200)
+    #id_remitente = forms.CharField(max_length=40)
+

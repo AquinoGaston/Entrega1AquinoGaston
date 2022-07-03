@@ -29,7 +29,10 @@ def login_request( request ):
 
                 login( request , user )
 
-                return render( request , "LoginInicio.html" , {"mensaje": f"Bienvenido { usuario }" } )
+                avatares = Avatar.objects.filter(user=request.user.id)
+
+                return render( request , "LoginInicio.html", {"url":avatares[0].imagen.url, "mensaje": f"Bienvenido { usuario }" }) 
+                #, {"mensaje": f"Bienvenido { usuario }" } )
 
             else:
                 return HttpResponse( f"Usuario Incorrecto" )

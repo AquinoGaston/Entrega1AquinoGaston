@@ -1,0 +1,35 @@
+{% extends "padre.html "%}
+
+{% load static %}
+
+{% block contenido %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Dni</th>
+        <th scope="col">Descripcion</th>
+        
+      </tr>
+    </thead>
+
+<tr>     
+  <td>{{usuario.nombre}}</td>
+  <td>{{usuario.dni}}</td>
+  <td>{{usuario.descripcion}}</td>
+              
+</tr>
+
+</table>
+  
+
+    <form action="{% url 'EnviarMensaje' usuario.id %}" method="POST">
+        {% csrf_token %}
+        <p>Comentar:</p>
+        <input type="text" name="texto" required>
+        
+        <input type="submit" value="Enviar">
+    </form>
+
+{% endblock%}

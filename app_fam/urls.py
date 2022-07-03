@@ -8,6 +8,12 @@ urlpatterns = [
     path('alta_articulos',views.alta_articulos, name="AgregarArticulo"),
     path('alta_vendedores',views.alta_vendedores, name="AgregarVendedor"),
 
+    path('comentar', views.comentar, name="EnviarMensaje"  ),
+    path('comentar/<int:id>', views.comentar, name="EnviarMensaje"  ),
+        
+    path('mensajes', views.mensajes, name="Mensajes"  ),
+    path('mensajes/<int:id>', views.mensajes, name="Mensajes"  ),
+
     path('usuarios', views.usuarios, name="usuarios"),
     path('articulos', views.articulos, name="articulos"), 
     path('vendedores', views.vendedores, name="vendedores"),

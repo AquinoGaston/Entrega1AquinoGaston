@@ -1,0 +1,40 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+  
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Dni</th>
+            <th scope="col">Descripcion</th>
+          </tr>
+          <tr>     
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.dni}}</td>
+            <td>{{usuario.descripcion}}</td>
+                   
+          </tr>
+        </thead>
+        <th scope="col">Comentarios</th>
+        <tbody class="table-group-divider">
+        {% for mensaje in mensaje%}
+          <tr>     
+            <td>{{mensaje.texto}}</td>
+            <br>
+            <td>{{mensaje.id_remitente}}</td>
+            
+            
+          </tr>
+        {% endfor %}  
+        
+        
+        </tbody>
+
+    </table>
+    
+    
+{% endblock %}   

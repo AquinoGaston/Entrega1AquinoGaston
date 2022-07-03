@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.template import loader    
 from app_fam.models import *
 from app_fam.forms  import *
+from app_fam.forms import Alta_mensaje
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -323,3 +324,36 @@ def editar_articulo(request, id):
         return render(request,"articulos.html", {"articulo":arts})
 
 
+#avatares = Avatar.objects.filter(user=request.user.id)
+
+@login_required
+def comentar ( request, id ):
+
+    usuario = request.user
+
+    us = Usuario.objects.get(id=id)
+
+    if request.method == "POST":
+        
+        mi_formulario = Alta_mensaje(request.POST)
+
+        if mi_formulario.is_valid():
+                        
+            datos =  mi_formulario.cleaned_data
+            mensaje = Mensaje( texto = datos['texto'], id_remitente = usuario.id, id_destino = us.id)
+            mensaje.save()
+
+            mensaje = Mensaje.objects.filter(id_destino=id)
+            
+            return render(request, "comentarios.html",{"mensaje":mensaje , "usuario":us})
+    
+    return render(request, "mensajes.html", {"usuario":us})  
+
+def mensajes( request, id ):
+
+    us = Usuario.objects.get(id=id)
+    mensaje = Mensaje.objects.filter(id_destino=id)
+    
+
+    return render(request, "comentarios.html",{"mensaje":mensaje , "usuario":us})
+    

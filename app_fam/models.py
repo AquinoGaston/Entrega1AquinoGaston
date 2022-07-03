@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Articulo (models.Model):
@@ -16,6 +17,8 @@ class Usuario (models.Model):
     dni =  models.IntegerField ()
     descripcion = models.CharField (max_length= 40)
     id_usuario = models.IntegerField()
+    
+    
 
 class Vendedor (models.Model):
 
@@ -24,3 +27,15 @@ class Vendedor (models.Model):
     direccion = models.CharField (max_length= 40)   
     emaeil = models.EmailField() 
     id_usuario = models.IntegerField()
+
+class Avatar(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField( upload_to='avatares' , null=True, blank =True )
+
+class Mensaje(models.Model):
+
+    texto = models.CharField(max_length=200)
+    id_remitente = models.IntegerField()
+    id_destino = models.IntegerField()
+    
