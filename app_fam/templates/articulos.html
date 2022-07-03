@@ -28,6 +28,8 @@
             {% if request.user.is_authenticated %}
             <td><a href="{% url 'EditarArticulo' n.id %}"> EDITAR </a></td>
             <td><a href="{% url 'EliminarArticulo' n.id %}"> BORRAR </a></td>
+            <td><a href="{% url 'EnviarMensajeArticulo' n.id %}"> Comentar </a></td>
+            <td><a href="{% url 'MensajesArticulo' n.id %}"> Mensajes </a></td>
             {% endif %}
           </tr>
         {% endfor %}

@@ -8,14 +8,16 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Dni</th>
-            <th scope="col">Descripcion</th>
+            <th scope="col">Nombre Empresa</th>
+            <th scope="col">CUIT</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Email</th>
           </tr>
           <tr>     
-            <td>{{usuario.nombre}}</td>
-            <td>{{usuario.dni}}</td>
-            <td>{{usuario.descripcion}}</td>
+            <td>{{usuario.nom_vendedor}}</td>
+            <td>{{usuario.cuit}}</td>
+            <td>{{usuario.direccion}}</td>
+            <td>{{usuario.emaeil}}</td>
                    
           </tr>
         </thead>
@@ -30,14 +32,12 @@
             <td>{{mensaje.remitente}}</td>
                        
           </tr>
-          {% endfor %}  
+        {% endfor %}  
         
         
         </tbody>
-        
 
     </table>
-    <a class="navbar-brand" href="{% url 'usuarios' %}"><b>Volver</b></a>
     
-    
+    <a class="navbar-brand" href="{% url 'vendedores' %}"><b>Volver</b></a>
 {% endblock %}   

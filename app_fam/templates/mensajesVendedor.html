@@ -7,24 +7,26 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Dni</th>
-        <th scope="col">Descripcion</th>
+        <th scope="col">Nombre Empresa</th>
+        <th scope="col">CUIT</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Email</th>
         
       </tr>
     </thead>
 
   <tr>     
-    <td>{{usuario.nombre}}</td>
-    <td>{{usuario.dni}}</td>
-    <td>{{usuario.descripcion}}</td>
+    <td>{{usuario.nom_vendedor}}</td>
+    <td>{{usuario.cuit}}</td>
+    <td>{{usuario.direccion}}</td>
+    <td>{{usuario.emaeil}}</td>
               
   </tr>
 
   </table>
   
 
-    <form class="form" action="{% url 'EnviarMensaje' usuario.id %}" method="POST">
+    <form class="form" action="{% url 'EnviarMensajeVendedor' usuario.id %}" method="POST">
         {% csrf_token %}
         <p style="color:white"><b>Comentar:</b></p>
         <input class="comentar" type="text" name="texto" required maxlength="200">
@@ -32,9 +34,8 @@
         <input class="btn" type="submit" value="Enviar">
         
     </form>
-    <a class="navbar-brand" href="{% url 'usuarios' %}"><b>Volver</b></a>
-
-
+    <a class="navbar-brand" href="{% url 'vendedores' %}"><b>Volver</b></a>
+  
     <style>
       .form {
 
@@ -90,4 +91,5 @@
         }
           
     </style>
+
 {% endblock%}

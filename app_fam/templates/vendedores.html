@@ -30,6 +30,8 @@
             {% if request.user.is_authenticated %}
             <td><a href="{% url 'EditarVendedor' n.id %}"> EDITAR </a></td>
             <td><a href="{% url 'EliminarVendedor' n.id %}"> BORRAR </a></td>
+            <td><a href="{% url 'EnviarMensajeVendedor' n.id %}"> Contactar </a></td>
+            <td><a href="{% url 'MensajesVendedor' n.id %}"> Mensajes </a></td>
             {% endif %}
           </tr>
           

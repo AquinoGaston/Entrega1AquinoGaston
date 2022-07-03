@@ -340,7 +340,7 @@ def comentar ( request, id ):
         if mi_formulario.is_valid():
                         
             datos =  mi_formulario.cleaned_data
-            mensaje = Mensaje( texto = datos['texto'], id_remitente = usuario.id, id_destino = us.id)
+            mensaje = Mensaje( texto = datos['texto'], remitente = usuario.username, id_destino = us.id)
             mensaje.save()
 
             mensaje = Mensaje.objects.filter(id_destino=id)
@@ -356,4 +356,70 @@ def mensajes( request, id ):
     
 
     return render(request, "comentarios.html",{"mensaje":mensaje , "usuario":us})
+    
+#VENDEDORES
+
+@login_required
+def comentar_vendedor ( request, id ):
+
+    usuario = request.user
+
+    us = Vendedor.objects.get(id=id)
+
+    if request.method == "POST":
+        
+        mi_formulario = Alta_mensaje(request.POST)
+
+        if mi_formulario.is_valid():
+                        
+            datos =  mi_formulario.cleaned_data
+            mensaje = MensajeVendedor( texto = datos['texto'], remitente = usuario.username, id_destino = us.id)
+            mensaje.save()
+
+            mensaje = MensajeVendedor.objects.filter(id_destino=id)
+            
+            return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "usuario":us})
+    
+    return render(request, "mensajesVendedor.html", {"usuario":us})  
+
+def mensajes_vendedor( request, id ):
+
+    us = Vendedor.objects.get(id=id)
+    mensaje = MensajeVendedor.objects.filter(id_destino=id)
+    
+
+    return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "usuario":us})
+
+#ARTICULOS
+@login_required
+def comentar_articulos ( request, id ):
+
+    usuario = request.user
+
+    us = Articulo.objects.get(id=id)
+
+    if request.method == "POST":
+        
+        mi_formulario = Alta_mensaje(request.POST)
+
+        if mi_formulario.is_valid():
+                        
+            datos =  mi_formulario.cleaned_data
+            mensaje = MensajeArticulo( texto = datos['texto'], remitente = usuario.username, id_destino = us.id)
+            mensaje.save()
+
+            mensaje = MensajeArticulo.objects.filter(id_destino=id)
+            
+            return render(request, "comentariosArticulo.html",{"mensaje":mensaje , "usuario":us})
+    
+    return render(request, "mensajesArticulo.html", {"usuario":us})  
+
+def mensajes_articulos( request, id ):
+
+    us = Articulo.objects.get(id=id)
+    mensaje = MensajeArticulo.objects.filter(id_destino=id)
+    
+
+    return render(request, "comentariosArticulo.html",{"mensaje":mensaje , "usuario":us})
+
     

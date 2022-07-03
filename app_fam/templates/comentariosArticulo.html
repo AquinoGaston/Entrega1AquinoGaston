@@ -8,14 +8,18 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Dni</th>
-            <th scope="col">Descripcion</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Categoria</th>
           </tr>
           <tr>     
-            <td>{{usuario.nombre}}</td>
-            <td>{{usuario.dni}}</td>
-            <td>{{usuario.descripcion}}</td>
+            <td>{{usuario.nom_art}}</td>
+            <td>{{usuario.codigo}}</td>
+            <td>{{usuario.precio}}</td>
+            <td>{{usuario.stock}}</td>
+            <td>{{usuario.categoria}}</td>
                    
           </tr>
         </thead>
@@ -30,14 +34,14 @@
             <td>{{mensaje.remitente}}</td>
                        
           </tr>
-          {% endfor %}  
+        {% endfor %}  
         
         
         </tbody>
         
 
     </table>
-    <a class="navbar-brand" href="{% url 'usuarios' %}"><b>Volver</b></a>
+    <a class="navbar-brand" href="{% url 'articulos' %}"><b>Volver</b></a>
     
     
 {% endblock %}   

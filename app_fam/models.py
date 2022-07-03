@@ -36,6 +36,18 @@ class Avatar(models.Model):
 class Mensaje(models.Model):
 
     texto = models.CharField(max_length=200)
-    id_remitente = models.IntegerField()
+    remitente = models.CharField(max_length=40)
+    id_destino = models.IntegerField()
+
+class MensajeVendedor(models.Model):
+
+    texto = models.CharField(max_length=200)
+    remitente = models.CharField(max_length=40)
+    id_destino = models.IntegerField()
+
+class MensajeArticulo(models.Model):
+
+    texto = models.CharField(max_length=200)
+    remitente = models.CharField(max_length=40)
     id_destino = models.IntegerField()
     

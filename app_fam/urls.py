@@ -7,12 +7,29 @@ urlpatterns = [
     path('alta_usuarios', views.alta_usuarios, name="AgregarUsuario"),
     path('alta_articulos',views.alta_articulos, name="AgregarArticulo"),
     path('alta_vendedores',views.alta_vendedores, name="AgregarVendedor"),
-
+# mensajes usuario
     path('comentar', views.comentar, name="EnviarMensaje"  ),
     path('comentar/<int:id>', views.comentar, name="EnviarMensaje"  ),
         
     path('mensajes', views.mensajes, name="Mensajes"  ),
     path('mensajes/<int:id>', views.mensajes, name="Mensajes"  ),
+#mensajes vendedor
+
+    path('comentarVendedor', views.comentar_vendedor, name="EnviarMensajeVendedor"  ),
+    path('comentarVendedor/<int:id>', views.comentar_vendedor, name="EnviarMensajeVendedor"  ),
+        
+    path('mensajesVendedor', views.mensajes_vendedor, name="MensajesVendedor"  ),
+    path('mensajesVendedor/<int:id>', views.mensajes_vendedor, name="MensajesVendedor"  ),
+
+#mensajes articulos
+
+    path('comentarArticulo', views.comentar_articulos, name="EnviarMensajeArticulo" ),
+    path('comentarArticulo/<int:id>', views.comentar_articulos, name="EnviarMensajeArticulo" ),
+        
+    path('mensajesArticulo', views.mensajes_articulos, name="MensajesArticulo"  ),
+    path('mensajesArticulo/<int:id>', views.mensajes_articulos, name="MensajesArticulo" ),
+
+
 
     path('usuarios', views.usuarios, name="usuarios"),
     path('articulos', views.articulos, name="articulos"), 
