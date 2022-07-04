@@ -54,5 +54,6 @@ urlpatterns = [
     path('editar_usuario/<int:id>', views.editar_usuario, name="EditarUsuario"),
     path('editar_usuario/', views.editar_usuario, name="EditarUsuario"),
     path('login/' , include("login.urls")),
-
+    path('perfil/', views.perfil, name="Perfil"),
+    path('cargar_avatar/', views.cargar_avatar, name="Cargar_avatar"),
 ]

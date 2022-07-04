@@ -4,16 +4,12 @@
 
 {% block contenido %}
 
-    <h1>Editar Perfil</h1>
-    <h2>{{ usuario }}</h2>
+    <h1>Editar Perfil - {{ usuario }}</h1>
 
     <form action="" method="POST">
         {% csrf_token %}
 
-        <table>
-            {{ miformulario.as_table }}
-
-        </table>
+            {{ miformulario.as_p }}
 
         <input type="submit" value="Enviar">
     </form>

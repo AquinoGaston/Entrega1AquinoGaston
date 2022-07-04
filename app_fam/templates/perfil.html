@@ -1,0 +1,15 @@
+{% extends 'padre.html' %}
+
+{% block contenido %}
+
+{% load static %}
+    <h1>Perfil de {{request.user.username}}</h1>
+    <table>
+        <img src="{{image_url}}" alt="Imagen" width="10%">
+        <a style="color:blue" href="{% url 'editarperfil' %}"><b>Editar Perfil</b></a>
+                       
+    </table>
+    <h1></h1>
+    <a href="{% url 'Cargar_avatar' %}" >Cargar avatar</a> 
+
+{% endblock contenido %}

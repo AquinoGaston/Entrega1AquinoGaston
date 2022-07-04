@@ -1,6 +1,6 @@
 
 from django.http import HttpResponse
-from django.shortcuts import render 
+from django.shortcuts import render, redirect 
 from django.template import loader    
 from app_fam.models import *
 from app_fam.forms  import *
@@ -15,11 +15,13 @@ from django.contrib import messages
  # Create your views here. 
 
 def inicio (request):
-
+    if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "padre.html", {"image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
     return render(request, "padre.html")
 
 def about (request):
-
+    if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "about.html", {"image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
     return render(request, "about.html")
 
 @login_required
@@ -38,16 +40,18 @@ def alta_usuarios (request):
             usuario.save()
 
             usuario = Usuario.objects.all()
-            return render(request, "usuarios.html",{"usuario":usuario})
-
-    return render(request, "alta_usuarios.html")    
-
+            return render(request, "usuarios.html",{"usuario":usuario, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
+    
+    if len(Avatar.objects.filter(user=request.user)) > 0:  
+        return render(request, "alta_usuarios.html", {"image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})    
+    return render(request, "alta_usuarios.html")
 
 def usuarios (request):
-
+    
     usuarios = Usuario.objects.all()
-    datos = {"usuario": usuarios}
-    return render(request,"usuarios.html",datos)
+    if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request,"usuarios.html", {"usuario": usuarios, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
+    return render(request,"usuarios.html", {"usuario": usuarios})
 
 @login_required
 def alta_articulos(request):
@@ -65,20 +69,22 @@ def alta_articulos(request):
             articulo.save()
 
 
-            articulo= Articulo.objects.all()            
-            return render(request, "articulos.html",{"articulo":articulo})    
-
+            articulo= Articulo.objects.all()   
+            if len(Avatar.objects.filter(user=request.user)) > 0:         
+                return render(request, "articulos.html",{"articulo":articulo, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})    
+            return render(request, "articulos.html",{"articulo":articulo})
  
-
-    return render(request, "alta_articulos.html")    
-   
+    if len(Avatar.objects.filter(user=request.user)) > 0:  
+        return render(request, "alta_articulos.html", {"image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})    
+    return render(request, "alta_articulos.html")
 
 def articulos (request):
 
     articulo= Articulo.objects.all()
-    datos = {"articulo": articulo}
-    return render(request, "articulos.html",datos)
-  
+    if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "articulos.html", {"articulo": articulo, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
+    return render(request, "articulos.html", {"articulo": articulo})
+
 @login_required
 def alta_vendedores(request):
 
@@ -95,21 +101,23 @@ def alta_vendedores(request):
             vendedor.save()
 
             vendedor= Vendedor.objects.all()
+            if len(Avatar.objects.filter(user=request.user)) > 0:  
+                return render(request, "vendedores.html", {"vendedor":vendedor,  "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
             return render(request, "vendedores.html", {"vendedor":vendedor})
-
-    return render(request, "alta_vendedores.html") 
-
+    if len(Avatar.objects.filter(user=request.user)) > 0:  
+        return render(request, "alta_vendedores.html", { "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url}) 
+    return render(request, "alta_vendedores.html")
 def vendedores (request):
 
     vendedor= Vendedor.objects.all()
-    datos = {"vendedor": vendedor}
-    return render(request, "vendedores.html", datos)
-
+    if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "vendedores.html", {"vendedor": vendedor, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
+    return render(request, "vendedores.html", {"vendedor": vendedor})
 
 def buscar (request):
-
+    if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "buscar.html", {"image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
     return render(request, "buscar.html")
-
 
 def busqueda (request):
 
@@ -118,18 +126,18 @@ def busqueda (request):
         nombre = request.POST['nombre']
 
         dato = Usuario.objects.filter(nombre__icontains = nombre)
-
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request, "resultado_busqueda.html",{"datos":dato, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request, "resultado_busqueda.html",{"datos":dato})
-
     else:
 
         return HttpResponse("Campo vacio") 
 
 
 def buscar_articulo (request):
-
+    if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "buscar_articulo.html", {"image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
     return render(request, "buscar_articulo.html")
-
 
 def busqueda_articulo (request):
 
@@ -138,21 +146,17 @@ def busqueda_articulo (request):
         nom_art = request.POST['nom_art']
 
         dato = Articulo.objects.filter(nom_art__icontains = nom_art)
-
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request, "articulo_busqueda.html",{"datos":dato, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request, "articulo_busqueda.html",{"datos":dato})
-
     else:
-
         return HttpResponse("Campo vacio") 
 
 
-
-
-
 def buscar_vendedor (request):
-
+    if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "buscar_vendedor.html", {"image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
     return render(request, "buscar_vendedor.html")
-
 
 def busqueda_vendedor(request):
 
@@ -161,13 +165,13 @@ def busqueda_vendedor(request):
         nom_vendedor = request.POST['nom_vendedor']
 
         dato = Vendedor.objects.filter(nom_vendedor__icontains = nom_vendedor)
-
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request, "vendedor_busqueda.html",{"datos":dato, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request, "vendedor_busqueda.html",{"datos":dato})
-
     else:
-
         return HttpResponse("Campo vacio")         
 
+@login_required
 def eliminar_articulo(request, id):
     
     usuario = request.user
@@ -177,19 +181,20 @@ def eliminar_articulo(request, id):
         arts.delete()
 
         arts = Articulo.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"articulos.html", {"articulo":arts, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"articulos.html", {"articulo":arts})
-
     else:
         messages.success(request, "Alerta, no posee permisos sobre este articulo")
         arts = Articulo.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"articulos.html", {"articulo":arts, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"articulos.html", {"articulo":arts})
-        
        
    
-
+@login_required
 def eliminar_usuario(request, id):
     
-
     usuario = request.user
     us = Usuario.objects.get(id=id)
 
@@ -197,14 +202,19 @@ def eliminar_usuario(request, id):
         us.delete()
 
         us = Usuario.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"usuarios.html", {"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"usuarios.html", {"usuario":us})
-
     else:
 
         messages.success(request, "Alerta, no posee permisos sobre este articulo")
         us = Usuario.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"usuarios.html", {"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"usuarios.html", {"usuario":us})
 
+
+@login_required
 def eliminar_vendedor(request, id):
     
     usuario = request.user
@@ -215,15 +225,19 @@ def eliminar_vendedor(request, id):
         ven.delete()
 
         ven = Vendedor.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"vendedores.html", {"vendedor":ven, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"vendedores.html", {"vendedor":ven})
-
     else:
 
         messages.success(request, "Alerta, no posee permisos sobre este articulo")
         ven = Vendedor.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"vendedores.html", {"vendedor":ven, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"vendedores.html", {"vendedor":ven})
 
 
+@login_required
 def editar_vendedor(request, id):
 
     usuario = request.user
@@ -243,20 +257,24 @@ def editar_vendedor(request, id):
                 vend.save()
 
                 vend = Vendedor.objects.all()
+                if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+                    return render (request, "vendedores.html", {"vendedor":vend, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
                 return render (request, "vendedores.html", {"vendedor":vend})
-
         else:
             miform = Alta_vendedor(initial={"nom_vendedor":vend.nom_vendedor, "direccion":vend.direccion,"cuit":vend.cuit,"emaeil":vend.emaeil})
-
-        return render(request,"editar_vendedor.html",{"miform":miform, "vendedor":vend})
-
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"editar_vendedor.html",{"miform":miform, "vendedor":vend, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
+        return render(request,"editar_vendedor.html",{"miform":miform})
     else:
 
         messages.success(request, "Alerta, no posee permisos sobre este articulo")
         ven = Vendedor.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"vendedores.html", {"vendedor":ven, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"vendedores.html", {"vendedor":ven})
 
 
+@login_required
 def editar_usuario(request, id):
 
     usuario = request.user
@@ -275,21 +293,24 @@ def editar_usuario(request, id):
                 us.save()
 
                 us = Usuario.objects.all()
+                if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+                    return render (request, "usuarios.html", {"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
                 return render (request, "usuarios.html", {"usuario":us})
-
         else:
             miform = Alta_usuario(initial={"nombre":us.nombre, "dni":us.dni,"descripcion":us.descripcion})
 
-        return render(request,"editar_usuario.html",{"miform":miform, "usuario":us})
-
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"editar_usuario.html",{"miform":miform, "usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
+        return render(request,"editar_usuario.html",{"miform":miform})
     else:
 
         messages.success(request, "Alerta, no posee permisos sobre este articulo")
         us = Usuario.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"usuarios.html", {"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"usuarios.html", {"usuario":us})
 
-
-
+@login_required
 def editar_articulo(request, id):
     
     usuario = request.user
@@ -310,21 +331,62 @@ def editar_articulo(request, id):
                 art.save()
 
                 art = Articulo.objects.all()
+                if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+                    return render (request, "articulos.html", {"articulo":art, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
                 return render (request, "articulos.html", {"articulo":art})
-
         else:
             miform = Alta_articulos(initial={"nom_art":art.nom_art, "codigo":art.codigo,"precio":art.precio,"stock":art.stock,"categoria":art.categoria})
-
-        return render(request,"editar_articulo.html",{"miform":miform, "articulo":art})
-
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"editar_articulo.html",{"miform":miform, "articulo":art, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
+        return render(request,"editar_articulo.html",{"miform":miform})
     else:
 
         messages.success(request, "Alerta, no posee permisos sobre este articulo")
         arts = Articulo.objects.all()
+        if request.user.is_authenticated and len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"articulos.html", {"articulo":arts, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"articulos.html", {"articulo":arts})
 
+@login_required()
+def perfil(request):
 
-#avatares = Avatar.objects.filter(user=request.user.id)
+    avatar = Avatar.objects.filter(user=request.user)
+
+    if len(avatar) > 0:
+        imagen = avatar[0].imagen.url
+        return render(request, 'perfil.html', {"image_url": imagen})
+
+    return render (request, 'perfil.html')
+
+@login_required()
+def cargar_avatar(request):   
+    
+    if request.method == "POST":
+
+        form = AvatarForm(request.POST,request.FILES)
+
+        if form.is_valid():
+
+            usuario = request.user
+
+            avatar = Avatar.objects.filter(user=usuario)
+
+            if len(avatar) > 0:
+                avatar = avatar[0]
+                avatar.imagen = form.cleaned_data["imagen"]
+                avatar.save()
+
+            else:
+                avatar = Avatar(user=usuario, imagen=form.cleaned_data["imagen"])
+                avatar.save()
+            
+        return redirect("Perfil")
+    else:
+        form = AvatarForm()
+        if len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request, "cargar_avatar.html", {"form": form, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
+        return render(request, "cargar_avatar.html", {"form": form})
+
 
 #USUARIOS
 @login_required
@@ -346,10 +408,14 @@ def comentar ( request, id ):
 
             messages.success(request, "El mensaje se envio correctamente") 
 
-            us = Usuario.objects.all()                   
+            us = Usuario.objects.all()    
+            if len(Avatar.objects.filter(user=request.user)) > 0:                 
+                return render(request, "usuarios.html",{"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
             return render(request, "usuarios.html",{"usuario":us})
-    
-    return render(request, "mensajes.html", {"usuario":us})  
+    if len(Avatar.objects.filter(user=request.user)) > 0:  
+        return render(request, "mensajes.html", {"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})  
+    return render(request, "mensajes.html", {"usuario":us})
+
 
 def mensajes( request, id ):
 
@@ -360,15 +426,16 @@ def mensajes( request, id ):
 
         us = Usuario.objects.get(id=id)
         mensaje = Mensaje.objects.filter(id_destino=id)
-    
+        if len(Avatar.objects.filter(user=request.user)) > 0:  
+            return render(request, "comentarios.html",{"mensaje":mensaje , "usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request, "comentarios.html",{"mensaje":mensaje , "usuario":us})
-
     else:
 
         messages.success(request, "Alerta, no posee permisos para ver los mensajes")
         us = Usuario.objects.all() 
+        if len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"usuarios.html", {"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"usuarios.html", {"usuario":us})
- 
 #VENDEDORES
 
 @login_required
@@ -390,10 +457,14 @@ def comentar_vendedor ( request, id ):
             
             messages.success(request, "El mensaje se envio correctamente") 
 
-            vend = Vendedor.objects.all()                   
+            vend = Vendedor.objects.all()  
+            if len(Avatar.objects.filter(user=request.user)) > 0:                 
+                return render(request, "vendedores.html",{"vendedor":vend, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
             return render(request, "vendedores.html",{"vendedor":vend})
-    
-    return render(request, "mensajesVendedor.html", {"usuario":us})  
+  
+    if len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "mensajesVendedor.html", {"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})  
+    return render(request, "mensajesVendedor.html", {"usuario":us})
 
 def mensajes_vendedor( request, id ):
 
@@ -405,15 +476,17 @@ def mensajes_vendedor( request, id ):
         us = Vendedor.objects.get(id=id)
         mensaje = MensajeVendedor.objects.filter(id_destino=id)
     
-
+        if len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "usuario":us})
 
     else:
 
         messages.success(request, "Alerta, no posee permisos para ver los mensajes")
         vend = Vendedor.objects.all() 
+        if len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"vendedores.html", {"vendedor":vend, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"vendedores.html", {"vendedor":vend})
-
 
 
 #ARTICULOS
@@ -437,9 +510,14 @@ def comentar_articulos ( request, id ):
             messages.success(request, "El mensaje se envio correctamente") 
 
             art = Articulo.objects.all()                   
+            if len(Avatar.objects.filter(user=request.user)) > 0:
+                return render(request, "articulos.html",{"articulo":art, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
             return render(request, "articulos.html",{"articulo":art})
-    
-    return render(request, "mensajesArticulo.html", {"usuario":us})  
+
+    if len(Avatar.objects.filter(user=request.user)) > 0:
+        return render(request, "mensajesArticulo.html", {"usuario":us, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})  
+    return render(request, "mensajesArticulo.html", {"usuario":us})
+
 
 def mensajes_articulos( request, id ):
 
@@ -450,15 +528,16 @@ def mensajes_articulos( request, id ):
 
         art = Articulo.objects.get(id=id)
         mensaje = MensajeArticulo.objects.filter(id_destino=id)
-    
+        if len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "articulo":art, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request, "comentariosVendedor.html",{"mensaje":mensaje , "articulo":art})
-
     else:
 
         messages.success(request, "Alerta, no posee permisos para ver los mensajes")
         art = Articulo.objects.all() 
+        if len(Avatar.objects.filter(user=request.user)) > 0:
+            return render(request,"articulos.html", {"articulo":art, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url})
         return render(request,"articulos.html", {"articulo":art})
-
 
 
 

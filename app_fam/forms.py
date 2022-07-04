@@ -23,6 +23,9 @@ class Alta_vendedor (forms.Form):
     direccion = forms.CharField (max_length= 40)   
     emaeil = forms.EmailField() 
 
+class AvatarForm(forms.Form):
+
+    imagen = forms.ImageField()
 
 class Alta_mensaje(forms.Form):
 

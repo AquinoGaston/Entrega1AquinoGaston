@@ -1,0 +1,20 @@
+{% extends 'padre.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <table>
+        {{ form.as_p }}
+
+    </table>
+
+    <input type="submit" value="Cargar">
+</form>
+
+
+{% endblock contenido %}

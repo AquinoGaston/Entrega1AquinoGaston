@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
 from app_fam.models import *
@@ -29,9 +29,9 @@ def login_request( request ):
 
                 login( request , user )
 
-                avatares = Avatar.objects.filter(user=request.user.id)
-
-                return render( request , "LoginInicio.html", {"url":avatares[0].imagen.url, "mensaje": f"Bienvenido { usuario }" }) 
+                if len(Avatar.objects.filter(user=request.user)) > 0:
+                    return render( request , "LoginInicio.html", {"image_url": Avatar.objects.filter(user=request.user)[0].imagen.url, "mensaje": f"Bienvenido { usuario }" }) 
+                return render( request , "LoginInicio.html")
                 #, {"mensaje": f"Bienvenido { usuario }" } )
 
             else:
@@ -85,10 +85,10 @@ def editarPerfil (request):
             usuario.set_password(password)
             usuario.save()
 
-            return render (request , "padre.html")
+            return redirect ('Login')
     else:
 
         miformulario = UserEditForm(initial = {'email':usuario.email, 'first_name':usuario.first_name, 'last_name':usuario.last_name})
-
-    return render (request,"editar_perfil.html",{'miformulario':miformulario , 'usuario':usuario} )    
-
+    if len(Avatar.objects.filter(user=request.user)) > 0:
+        return render (request,"editar_perfil.html",{'miformulario':miformulario , 'usuario':usuario, "image_url": Avatar.objects.filter(user=request.user)[0].imagen.url })    
+    return render (request,"editar_perfil.html",{'miformulario':miformulario , 'usuario':usuario})
