@@ -5,7 +5,7 @@
 {% block contenido %}
 <main>
     <h1>Buscar</h1>
-    <form action="busqueda" method="POST">
+    <form action="{% url 'busqueda' %}" method="POST">
         {% csrf_token %}
         <p>Ingrese el Nombre del Usuario que desea buscar</p>
         <input type="text" name = "nombre" id = "nombre">

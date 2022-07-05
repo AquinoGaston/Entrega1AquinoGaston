@@ -37,11 +37,11 @@ urlpatterns = [
     path('about', views.about , name="about" ), 
 
     path('buscar',views.buscar, name="buscar"),
-    path('busqueda',views.busqueda),
-    path('buscar_articulo',views.buscar_articulo),
-    path('busqueda_articulo',views.busqueda_articulo),   
-    path('buscar_vendedor',views.buscar_vendedor),
-    path('busqueda_vendedor',views.busqueda_vendedor),
+    path('busqueda',views.busqueda, name = "busqueda"),
+    path('buscar_articulo',views.buscar_articulo , name = "buscar_articulo" ),
+    path('busqueda_articulo',views.busqueda_articulo, name = "busqueda_articulo"),   
+    path('buscar_vendedor',views.buscar_vendedor, name = "buscar_vendedor"),
+    path('busqueda_vendedor',views.busqueda_vendedor, name = "busqueda_vendedor"),
 
     path('eliminar_articulo/<int:id>', views.eliminar_articulo, name="EliminarArticulo"),
     path('eliminar_vendedor/<int:id>', views.eliminar_vendedor, name="EliminarVendedor"),
